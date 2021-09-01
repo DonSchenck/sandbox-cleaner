@@ -1,3 +1,7 @@
+if [ $# -eq 0 ]; then
+    echo "The app prefix must be supplied as a command-line parameter, e.g. ./sandbox-cleaner.sh myproject"
+    exit 1
+fi
 project_prefix=$1
 oc delete $(oc get secrets -o name | grep "$project_prefix")
 oc delete $(oc get routes -o name | grep "$project_prefix")
