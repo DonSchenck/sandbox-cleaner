@@ -15,4 +15,5 @@ oc delete $(oc get configmaps -o name | grep "$project_prefix")
 oc delete $(oc get bc -o name | grep "$project_prefix")
 oc delete $(oc get builds -o name | grep "$project_prefix")
 oc delete $(oc get dc -o name | grep "$project_prefix")
+oc delete $(oc get pvc -o name | grep "$project_prefix")
 
