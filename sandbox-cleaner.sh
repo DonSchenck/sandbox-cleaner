@@ -3,7 +3,8 @@ if [ $# -eq 0 ]; then
     exit 1
 fi
 
-project_prefix=$1
+
+project_prefix=($1-oc get project)
 
 oc delete $(oc get pods -o name | grep "$project_prefix")
 oc delete $(oc get secrets -o name | grep "$project_prefix")
