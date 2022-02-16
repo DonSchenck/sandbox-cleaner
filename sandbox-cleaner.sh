@@ -1,9 +1,13 @@
+DEFAULT_VALUE=$(oc project --short=true)
+
 if [ $# -eq 0 ]; then
+    echo "This script will execute against your current project"$DEFAULT_VALUE
+else
     echo "The app prefix must be supplied as a command-line parameter, e.g. ./sandbox-cleaner.sh myproject"
-    exit 1
 fi
 
-project_prefix=$1
+
+project_prefix=$(1:-$DEFAULT_VALUE)
 
 oc delete $(oc get pods -o name | grep "$project_prefix")
 oc delete $(oc get secrets -o name | grep "$project_prefix")
