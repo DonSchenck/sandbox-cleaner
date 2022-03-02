@@ -9,7 +9,7 @@ For example:
 
 You can optionally provide a project name:
 
-`./sandbox-cleaner.sh --project=myproject --app-prefix-myappprefix`  
+`./sandbox-cleaner.sh --project=myproject --app-prefix=myappprefix`  
 
 
 
