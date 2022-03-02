@@ -1,3 +1,5 @@
+#!/bin/bash
+
 project=$(oc project --short=true)
 
 while [ $# -gt 0 ]; do
@@ -20,17 +22,16 @@ fi
 
 project_prefix=$project
 
-
-oc delete $(oc get pods -o name | grep "$project_prefix")
-oc delete $(oc get secrets -o name | grep "$project_prefix")
-oc delete $(oc get routes -o name | grep "$project_prefix")
-oc delete $(oc get deploy -o name | grep "$project_prefix")
-oc delete $(oc get imagestreams -o name | grep "$project_prefix")
-oc delete $(oc get services -o name | grep "$project_prefix")
-oc delete $(oc get configmaps -o name | grep "$project_prefix")
-oc delete $(oc get bc -o name | grep "$project_prefix")
-oc delete $(oc get builds -o name | grep "$project_prefix")
-oc delete $(oc get dc -o name | grep "$project_prefix")
-oc delete $(oc get pvc -o name | grep "$project_prefix")
-oc delete $(oc get akc -o name | grep "$project_prefix")
+oc delete $(oc get pods -n "$project" -o name | grep "$app_prefix")
+oc delete $(oc get secrets -n "$project" -o name | grep "$app_prefix")
+oc delete $(oc get routes -n "$project" -o name | grep "$app_prefix")
+oc delete $(oc get deploy -n "$project" -o name | grep "$app_prefix")
+oc delete $(oc get imagestreams -n "$project" -o name | grep "$app_prefix")
+oc delete $(oc get services -n "$project" -o name | grep "$app_prefix")
+oc delete $(oc get configmaps -n "$project" -o name | grep "$app_prefix")
+oc delete $(oc get bc -n "$project" -o name | grep "$app_prefix")
+oc delete $(oc get builds -n "$project" -o name | grep "$app_prefix")
+oc delete $(oc get dc -n "$project" -o name | grep "$app_prefix")
+oc delete $(oc get pvc -n "$project" -o name | grep "$app_prefix")
+oc delete $(oc get akc -n "$project" -o name | grep "$app_prefix")
 
