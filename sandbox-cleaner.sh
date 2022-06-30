@@ -22,6 +22,8 @@ fi
 
 project_prefix=$project
 
+oc delete $(oc get jobs -n "$project" -o name | grep "$app_prefix")
+oc delete $(oc get cronjobs -n "$project" -o name | grep "$app_prefix")
 oc delete $(oc get pods -n "$project" -o name | grep "$app_prefix")
 oc delete $(oc get secrets -n "$project" -o name | grep "$app_prefix")
 oc delete $(oc get routes -n "$project" -o name | grep "$app_prefix")
