@@ -7,7 +7,7 @@
 #fi
 
 
-$app_prefix="post"
+$app_prefix="metro"
 
 Invoke-Expression {oc get pods -o name | Select-String $app_prefix} | oc delete
 
