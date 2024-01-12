@@ -34,6 +34,8 @@ oc delete $(oc get configmaps                        -n "$project" -o name | gre
 oc delete $(oc get bc                                -n "$project" -o name | grep "$app_prefix")
 oc delete $(oc get builds                            -n "$project" -o name | grep "$app_prefix")
 oc delete $(oc get dc                                -n "$project" -o name | grep "$app_prefix")
+oc delete $(oc get rs                                -n "$project" -o name | grep "$app_prefix")
+oc delete $(oc get rc                                -n "$project" -o name | grep "$app_prefix")
 oc delete $(oc get pvc                               -n "$project" -o name | grep "$app_prefix")
 oc delete $(oc get akc                               -n "$project" -o name | grep "$app_prefix")
 oc delete $(oc get configuration.serving.knative.dev -n "$project" -o name | grep "$app_prefix")

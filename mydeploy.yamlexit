@@ -1,0 +1,92 @@
+apiVersion: v1
+items:
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: quotes
+      app.kubernetes.io/component: quotes
+      app.kubernetes.io/instance: quotes
+    name: quotes
+  spec:
+    lookupPolicy:
+      local: false
+    tags:
+    - annotations:
+        openshift.io/imported-from: quay.io/donschenck/quotes:v1
+      from:
+        kind: DockerImage
+        name: quay.io/donschenck/quotes:v1
+      generation: null
+      importPolicy: {}
+      name: v1
+      referencePolicy:
+        type: ""
+  status:
+    dockerImageRepository: ""
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"quotes:v1"},"fieldPath":"spec.template.spec.containers[?(@.name==\"quotes\")].image"}]'
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: quotes
+      app.kubernetes.io/component: quotes
+      app.kubernetes.io/instance: quotes
+    name: quotes
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        deployment: quotes
+    strategy: {}
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          deployment: quotes
+      spec:
+        containers:
+        - image: ' '
+          name: quotes
+          ports:
+          - containerPort: 10000
+            protocol: TCP
+          - containerPort: 8080
+            protocol: TCP
+          resources: {}
+  status: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: quotes
+      app.kubernetes.io/component: quotes
+      app.kubernetes.io/instance: quotes
+    name: quotes
+  spec:
+    ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    - name: 10000-tcp
+      port: 10000
+      protocol: TCP
+      targetPort: 10000
+    selector:
+      deployment: quotes
+  status:
+    loadBalancer: {}
+kind: List
+metadata: {}
